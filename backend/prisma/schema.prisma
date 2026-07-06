@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  RESELLER
+  USER
+  SUPPORT
+}
+
+model User {
+  id                 String   @id @default(uuid())
+  username           String   @unique
+  email              String?  @unique
+  passwordHash       String
+  role               Role     @default(USER)
+  mustChangePassword Boolean  @default(false)
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  auditLogs          AuditLog[]
+}
+
+enum NodeStatus {
+  PENDING
+  ONLINE
+  OFFLINE
+  ERROR
+}
+
+model Node {
+  id            String     @id @default(uuid())
+  name          String
+  hostname      String?
+  agentToken    String     @unique
+  status        NodeStatus @default(PENDING)
+  os            String?
+  virtualization String?
+  cpuCores      Int?
+  ramMb         Int?
+  diskGb        Int?
+  ipAddress     String?
+  labels        String[]   @default([])
+  lastHeartbeat DateTime?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  containers    Container[]
+  metrics       NodeMetric[]
+}
+
+model NodeMetric {
+  id        String   @id @default(uuid())
+  nodeId    String
+  node      Node     @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  cpuUsage  Float
+  ramUsage  Float
+  diskUsage Float
+  netRxKb   Float
+  netTxKb   Float
+  createdAt DateTime @default(now())
+
+  @@index([nodeId, createdAt])
+}
+
+enum ContainerStatus {
+  CREATING
+  RUNNING
+  STOPPED
+  SUSPENDED
+  ERROR
+  DELETED
+}
+
+model Container {
+  id         String          @id @default(uuid())
+  nodeId     String
+  node       Node            @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  name       String
+  ctType     String          @default("lxc") // lxc | docker | kvm
+  osTemplate String?
+  status     ContainerStatus @default(CREATING)
+  cpuLimit   Int?
+  ramLimitMb Int?
+  diskLimitGb Int?
+  ownerId    String?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  detail    String?
+  ip        String?
+  createdAt DateTime @default(now())
+}

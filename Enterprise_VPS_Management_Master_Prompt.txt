@@ -1,0 +1,119 @@
+ENTERPRISE VPS MANAGEMENT PANEL - MASTER PROMPT
+
+Build a production-ready VPS management platform with: - React/Next.js +
+Tailwind frontend - NestJS backend - PostgreSQL + Redis - Docker Compose
+deployment
+
+Core Features
+
+-   Default admin (admin/admin, force password change)
+-   User registration/login/reset password
+-   Roles: Super Admin, Admin, Reseller, User, Support
+-   RBAC permissions
+-   Live dashboard (CPU, RAM, Disk, Network, Nodes, VPS)
+
+Node Management
+
+-   Unlimited nodes
+-   Auto node registration with one install command
+-   Detect OS, CPU, RAM, Disk, virtualization, IPs
+-   Heartbeat and WebSocket
+-   Auto reconnect
+-   Live monitoring
+-   Labels/groups
+-   SSH management
+
+Node Agent
+
+-   Auto install/update
+-   Register itself securely
+-   Report CPU/RAM/Disk/Bandwidth/Uptime
+-   Execute commands from panel
+-   Stream logs and terminal
+-   Manage LXC containers
+
+Virtualization
+
+Primary: LXC Also support: Docker and KVM where available.
+
+LXC Features
+
+Create/Delete/Start/Stop/Restart/Suspend/Unsuspend/Clone/Snapshot/Restore/
+Backup/Reinstall/Rename/Reset Password/Hostname/Resource limits.
+
+Supported OS templates: - Ubuntu 20.04 - Ubuntu 22.04 - Ubuntu 24.04 -
+Debian 11 - Debian 12 - Alpine - Rocky Linux - AlmaLinux
+
+Docker
+
+-   Detect/install Docker
+-   Docker Compose
+-   Service management
+-   Health checks
+
+systemd
+
+-   Create services
+-   Enable on boot
+-   Restart on failure
+-   Fallback gracefully if unavailable
+
+Pterodactyl & Wings
+
+-   Install/configure Pterodactyl
+-   Install/configure Wings
+-   Detect existing installations
+-   Create nodes/allocations
+-   Sync users
+-   Manage Wings service and logs
+
+File Manager
+
+Upload/download/edit/search/rename/delete/compress/extract/permissions.
+
+Browser Terminal
+
+xterm.js, WebSockets, resize, multi-tab, copy/paste.
+
+Git
+
+Clone/pull/push/branches/commits/GitHub/GitLab/Bitbucket/SSH keys.
+
+Backups
+
+Manual, scheduled, encrypted, restore, snapshots.
+
+Notifications
+
+Email, Discord, Telegram, Slack, in-app.
+
+API
+
+REST + WebSocket + JWT + API keys + Swagger.
+
+Security
+
+Argon2/bcrypt, CSRF, XSS, SQLi protection, rate limiting, audit logs,
+secure cookies, trusted proxy support.
+
+Cloudflare Tunnel
+
+Must work behind Cloudflare Tunnel. Default local URL:
+http://localhost:8006 Support WebSockets, trusted proxy headers, HTTPS
+via tunnel.
+
+Installer
+
+One command installs panel and node agent, configures Docker, database,
+services, firewall, environment, and auto-registers nodes.
+
+UI
+
+Modern premium responsive dashboard with dark/light mode, charts,
+animations, search, command palette, notifications.
+
+Quality
+
+No placeholders, no TODOs, production-ready, modular architecture,
+tests, documentation, scalable to hundreds of nodes and thousands of
+containers.
