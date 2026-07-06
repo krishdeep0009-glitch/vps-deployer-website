@@ -16,7 +16,8 @@ read -p "Enter your choice: " choice
 case "$choice" in
     1)
         echo ""
-        echo "Starting installation..."
+        echo "Installing... please wait"
+        echo ""
 
         REPO_URL="https://github.com/krishdeep0009-glitch/vps-deployer-website"
         INSTALL_DIR="vps-deployer-website"
